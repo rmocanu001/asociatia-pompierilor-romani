@@ -1,0 +1,32 @@
+{
+  "name": "asociatia-pompierilor-romani",
+  "version": "1.0.0",
+  "description": "Website pentru Asociatia Pompierilor Romani cu autorizare QR",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "pompieri",
+    "asociatie",
+    "qr-code",
+    "autorizare"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "qrcode": "^1.5.3",
+    "body-parser": "^1.20.2",
+    "uuid": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
