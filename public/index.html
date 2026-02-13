@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asociația Pompierilor Români - Portal Membri</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <h1>🚒 Asociația Pompierilor Români</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" onclick="showSection('home')">Acasă</a></li>
+                    <li><a href="#register" onclick="showSection('register')">Înregistrare</a></li>
+                    <li><a href="#verify" onclick="showSection('verify')">Verificare QR</a></li>
+                    <li><a href="#discounts" onclick="showSection('discounts')">Reduceri</a></li>
+                    <li><a href="#profile" onclick="showSection('profile')">Profilul Meu</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h2>Bine ați venit la Asociația Pompierilor Români</h2>
+                <p class="subtitle">Portal pentru membri cu acces prin cod QR</p>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="icon">📱</div>
+                        <h3>Acces prin QR Code</h3>
+                        <p>Autorizare rapidă și sigură folosind certificatul electronic</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">💳</div>
+                        <h3>Reduceri Exclusive</h3>
+                        <p>Beneficiați de reduceri la partenerii noștri</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔒</div>
+                        <h3>Securitate</h3>
+                        <p>Date protejate conform standardelor europene</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="section">
+            <div class="form-container">
+                <h2>Înregistrare Membru Nou</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="name">Nume Complet*</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="certificate_number">Număr Certificat Electronic*</label>
+                        <input type="text" id="certificate_number" name="certificate_number" required>
+                        <small>Numărul de serie de pe buletinul electronic</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="certificate_data">Date Certificat (opțional)</label>
+                        <textarea id="certificate_data" name="certificate_data" rows="3"></textarea>
+                        <small>Informații suplimentare despre certificat</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Înregistrează-te</button>
+                </form>
+                <div id="registerResult" class="result-container" style="display: none;"></div>
+            </div>
+        </section>
+
+        <!-- Verify Section -->
+        <section id="verify" class="section">
+            <div class="form-container">
+                <h2>Verificare Cod QR</h2>
+                <p>Scanați codul QR al membrului pentru a verifica apartenența la asociație</p>
+                
+                <div class="form-group">
+                    <label for="qr_data">Date QR (JSON)</label>
+                    <textarea id="qr_data" rows="5" placeholder='{"id":"...","name":"...","certificate_number":"...","timestamp":"..."}'></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="verified_by">Verificat de</label>
+                    <input type="text" id="verified_by" placeholder="Nume verificator">
+                </div>
+                <button onclick="verifyQRCode()" class="btn btn-primary">Verifică</button>
+                
+                <div id="verifyResult" class="result-container" style="display: none;"></div>
+            </div>
+        </section>
+
+        <!-- Discounts Section -->
+        <section id="discounts" class="section">
+            <h2>Reduceri Parteneri</h2>
+            <div id="discountsList" class="discounts-grid"></div>
+            
+            <div class="form-container" style="margin-top: 40px;">
+                <h3>Adaugă Partener/Reducere</h3>
+                <form id="discountForm">
+                    <div class="form-group">
+                        <label for="partner_name">Nume Partener*</label>
+                        <input type="text" id="partner_name" name="partner_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descriere</label>
+                        <textarea id="description" name="description" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="discount_percentage">Procent Reducere*</label>
+                        <input type="number" id="discount_percentage" name="discount_percentage" min="1" max="100" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Adaugă Reducere</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <div class="form-container">
+                <h2>Profilul Meu</h2>
+                <div class="form-group">
+                    <label for="member_id">ID Membru</label>
+                    <input type="text" id="member_id" placeholder="Introduceți ID-ul dvs.">
+                    <button onclick="loadProfile()" class="btn btn-primary">Încarcă Profil</button>
+                </div>
+                
+                <div id="profileData" class="profile-data" style="display: none;">
+                    <div class="profile-header">
+                        <h3 id="profileName"></h3>
+                        <span id="profileStatus" class="status-badge"></span>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+                        <p><strong>Telefon:</strong> <span id="profilePhone"></span></p>
+                        <p><strong>Certificat:</strong> <span id="profileCertificate"></span></p>
+                        <p><strong>Membru din:</strong> <span id="profileCreated"></span></p>
+                    </div>
+                    
+                    <div class="qr-code-container">
+                        <h4>Codul Tău QR pentru Reduceri</h4>
+                        <img id="profileQR" src="" alt="QR Code">
+                        <button onclick="downloadQR()" class="btn btn-secondary">Descarcă QR Code</button>
+                    </div>
+                    
+                    <div class="verifications-container">
+                        <h4>Istoric Verificări</h4>
+                        <div id="verificationsHistory"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Asociația Pompierilor Români. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
